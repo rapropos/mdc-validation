@@ -1,27 +1,17 @@
-# MdcValidation
+This project was created to demonstrate a problem with
+[@angular-mdc/web PR #1491](https://github.com/trimox/angular-mdc-web/pull/1491)
+affecting field validation with reactive forms.
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.0.3.
+The main page contains a text field and a button. The text
+field binds to a form control whose value is required. The
+button should only be enabled when the form passes validation.
+Thus, entering anything in the text field *should* enable the
+button. However, it does not, and some other event, such as
+a click elsewhere on the page, is required to tickle the button
+into becoming enabled.
 
-## Development server
-
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
-
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+I believe this to be a regression, for downgrading @angular-mdc/web
+to 0.40.2 restores the previous and expected behavior, as does
+surgically using git revert to undo this one particular commit
+while leaving the rest of the changes from 0.40.2 to 0.41.0-pre1
+intact.
